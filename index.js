@@ -44,7 +44,20 @@ const { parsePhoneNumber } = require("libphonenumber-js")
 const { PHONENUMBER_MCC } = require('@whiskeysockets/baileys/lib/Utils/generics')
 const { rmSync, existsSync } = require('fs')
 const { join } = require('path')
+// Required for Render deployment
+const PORT = process.env.PORT || 3000;
+const express = require('express');
+const app = express();
 
+// Simple route to keep the service alive
+app.get('/', (req, res) => {
+  res.send('Knight Bot is running! 🤖');
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 const store = makeInMemoryStore({
     logger: pino().child({
         level: 'silent',
